@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     @Column
@@ -50,4 +52,8 @@ public class UserEntity {
             inverseJoinColumns = @JoinColumn(name = "id_project")
     )
     private Set<ProjectEntity> assignedProjects;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(table = "time_pieces", name = "id_user")
+    private List<TimePiecesEntity> timePieces;
 }
