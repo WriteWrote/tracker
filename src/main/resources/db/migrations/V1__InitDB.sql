@@ -18,7 +18,7 @@ create table tracker.roles
 create table tracker.user_roles
 (
     id_user uuid references tracker.users,
-    id_role uuid references tracker.roles
+    id_role int references tracker.roles
 );
 
 create table tracker.projects

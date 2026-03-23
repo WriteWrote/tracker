@@ -10,5 +10,6 @@ spring:
     enabled: true
     validate-on-migrate: true
     baseline-on-migrate: true
+    locations: classpath:db/migrations
 db:
   schema: tracker
