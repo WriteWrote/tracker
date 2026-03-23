@@ -6,7 +6,7 @@ import lombok.*;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -40,5 +40,14 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role")
     )
-    private List<RoleEntity> assignedRoles;
+    private Set<RoleEntity> assignedRoles;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            schema = "tracker",
+            name = "user_projects",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_project")
+    )
+    private Set<ProjectEntity> assignedProjects;
 }
