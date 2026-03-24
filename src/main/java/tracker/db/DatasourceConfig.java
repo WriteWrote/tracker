@@ -9,22 +9,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("tracker.db.entity")
 @EnableJpaRepositories("tracker.db.repository")
 @EnableTransactionManagement
-public class DatasourceConfig {
-
-//    @Bean
-//    @Primary
-//    @ConfigurationProperties(prefix = "spring.datasource")
-//    public HikariDataSource hikariDataSource() {
-//        var datasource = DataSourceBuilder
-//                .create()
-//                .type(HikariDataSource.class)
-//                .build();
-//        datasource.setSchema("tracker");
-//        return datasource;
-//    }
-//
-//    @Bean
-//    public JdbcTemplate jdbcTemplate(HikariDataSource hikariDataSource) {
-//        return new JdbcTemplate(hikariDataSource);
-//    }
-}
+public class DatasourceConfig { }

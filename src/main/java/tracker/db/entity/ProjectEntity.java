@@ -35,5 +35,5 @@ public class ProjectEntity {
 
     @OneToMany(fetch = FetchType.LAZY)
 //    @JoinColumn(table = "time_pieces", name = "id_project")
-    private List<TimePiecesEntity> timePieces;
+    private List<TimeIntervalEntity> timeIntervals;
 }

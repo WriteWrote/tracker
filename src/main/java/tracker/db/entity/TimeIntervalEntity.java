@@ -10,9 +10,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "time_pieces", schema = "tracker")
+@Table(name = "time_intervals", schema = "tracker")
 @Entity
-public class TimePiecesEntity {
+public class TimeIntervalEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
