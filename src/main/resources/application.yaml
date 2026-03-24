@@ -5,11 +5,13 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres
-    jdbc-url: jdbc:postgresql://127.0.0.1:5432/postgres
+    url: jdbc:postgresql://127.0.0.1:5432/postgres
   flyway:
     enabled: true
     validate-on-migrate: true
     baseline-on-migrate: true
     locations: classpath:db/migrations
+  autoconfigure:
+    exclude: org.springframework.boot.data.jdbc.autoconfigure.DataJdbcRepositoriesAutoConfiguration
 db:
   schema: tracker

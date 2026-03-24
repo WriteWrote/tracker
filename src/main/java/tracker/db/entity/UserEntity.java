@@ -3,8 +3,6 @@ package tracker.db.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 import java.util.Set;
@@ -54,6 +52,6 @@ public class UserEntity {
     private Set<ProjectEntity> assignedProjects;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(table = "time_pieces", name = "id_user")
+//    @JoinColumn(table = "time_pieces", name = "id_user")
     private List<TimePiecesEntity> timePieces;
 }

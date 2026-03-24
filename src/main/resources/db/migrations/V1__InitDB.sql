@@ -35,6 +35,7 @@ create table tracker.user_projects
 
 create table tracker.time_pieces
 (
+    id           uuid primary key unique default gen_random_uuid(),
     id_user      uuid references tracker.users,
     id_project   uuid references tracker.projects,
     time_minutes int not null,

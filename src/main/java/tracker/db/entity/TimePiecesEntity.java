@@ -2,8 +2,6 @@ package tracker.db.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
@@ -20,17 +18,17 @@ public class TimePiecesEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
-    @Column("id_user")
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(table = "users", name = "id")
+//    @JoinColumn(table = "users", name = "id")
+//    @Column(name = "id_user")
     private UserEntity idUser;
 
-    @Column("id_project")
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(table = "projects", name = "id")
+//    @JoinColumn(table = "projects", name = "id")
+//    @Column(name = "id_project")
     private ProjectEntity idProject;
 
-    @Column("time_minutes")
+    @Column(name = "time_minutes")
     private Integer timeInMin;
 
     @Column
