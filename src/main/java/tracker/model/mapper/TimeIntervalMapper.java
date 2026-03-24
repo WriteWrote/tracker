@@ -5,9 +5,8 @@ import tracker.db.entity.UserEntity;
 import tracker.model.dto.LightUserDto;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-    LightUserDto fromEntity(UserEntity entity);
+public interface TimeIntervalMapper {
+    ShallowTimeIntervalDto fromEntity(TimeIntervalEntity entity);
 
-    UserWithProjectsDto fromEntity(UserEntity entity);
-    UserEntity fromDto(LightUserDto dto);
+    TimeIntervalEntity fromDto(ShallowTimeIntervalDto dto);
 }
