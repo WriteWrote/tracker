@@ -9,5 +9,5 @@ public class UserWithProjectsDto {
     private String login;
     private String grade;
     private String position;
-    private List<ProjectDto> projects;
+    private List<ProjectDto> assignedProjects;
 }

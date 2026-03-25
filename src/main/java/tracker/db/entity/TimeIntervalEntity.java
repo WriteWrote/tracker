@@ -21,12 +21,12 @@ public class TimeIntervalEntity {
     @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(table = "users", name = "id")
 //    @Column(name = "id_user")
-    private UserEntity idUser;
+    private UserEntity user;
 
     @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(table = "projects", name = "id")
 //    @Column(name = "id_project")
-    private ProjectEntity idProject;
+    private ProjectEntity project;
 
     @Column(name = "time_minutes")
     private Integer timeInMin;
