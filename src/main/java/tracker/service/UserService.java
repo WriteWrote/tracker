@@ -2,15 +2,15 @@ package tracker.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tracker.db.entity.UserEntity;
 import tracker.db.repository.ProjectRepository;
 import tracker.db.repository.UserRepository;
 import tracker.model.dto.CreateUserDto;
 import tracker.model.dto.LightUserDto;
 import tracker.model.mapper.UserMapper;
 
-import javax.management.InstanceAlreadyExistsException;
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor

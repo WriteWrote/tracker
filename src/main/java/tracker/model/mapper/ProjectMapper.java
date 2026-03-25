@@ -10,4 +10,6 @@ public interface ProjectMapper {
     ProjectDto fromEntity(ProjectEntity entity);
 
     ProjectEntity fromDto(ProjectDto dto);
+
+    ProjectEntity merge(ProjectDto dto, ProjectEntity entity);
 }
