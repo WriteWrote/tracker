@@ -49,7 +49,7 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_project")
     )
-    private Set<ProjectEntity> assignedProjects;
+    private List<ProjectEntity> assignedProjects;
 
     @OneToMany(fetch = FetchType.LAZY)
 //    @JoinColumn(table = "time_pieces", name = "id_user")
