@@ -6,6 +6,8 @@ import tracker.db.repository.ProjectRepository;
 import tracker.model.dto.ProjectDto;
 import tracker.model.mapper.ProjectMapper;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class ProjectService {
@@ -25,6 +27,14 @@ public class ProjectService {
             throw new Exception("");
         } else {
             projectRepository.delete(projectMapper.fromDto(dto));
+        }
+    }
+
+    public void deleteProject(UUID id) throws Exception {
+        if (!projectRepository.existsById(id)) {
+            throw new Exception("");
+        } else {
+            projectRepository.deleteById(id);
         }
     }
 

@@ -14,8 +14,8 @@ import tracker.service.UserService;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/user")
 @AllArgsConstructor
+@RequestMapping("/user")
 public class UserController {
     private final UserService userService;
 
@@ -58,6 +58,20 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
                     .header(Headers.SERVER_MESSAGE.getValue(), "No such user %s".formatted(userId))
+                    .build();
+        }
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(@RequestBody UUID userId) {
+        try {
+            userService.deleteUser(userId);
+            return ResponseEntity.ok()
+                    .header(Headers.SERVER_MESSAGE.getValue(), "Deleted user with id= %s".formatted(userId))
+                    .build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .header(Headers.SERVER_MESSAGE.getValue(), "User with this UUID doesn't exist")
                     .build();
         }
     }

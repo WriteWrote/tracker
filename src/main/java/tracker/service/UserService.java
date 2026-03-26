@@ -31,7 +31,7 @@ public class UserService {
         } else throw new Exception("");
     }
 
-    public boolean assignProjectToUser(UUID userId, UUID projectId) throws Exception {
+    public void assignProjectToUser(UUID userId, UUID projectId) throws Exception {
         var user = userRepository.findById(userId).orElseThrow(() -> new Exception(""));
         var project = projectRepository.findById(projectId).orElseThrow(() -> new Exception(""));
         var assignedProjects = user.getAssignedProjects();
@@ -42,6 +42,17 @@ public class UserService {
         }
         user.setAssignedProjects(assignedProjects);
         userRepository.save(user);
-        return userRepository.findById(userId).get().getAssignedProjects().equals(assignedProjects);
+    }
+
+    public void deleteUser(UUID id) throws Exception {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.deleteById(id);
+        } else {
+            throw new Exception("");
+        }
+    }
+
+    public void removeProjectFromUser() {
+        //todo npt yet implemented
     }
 }
