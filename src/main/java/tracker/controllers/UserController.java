@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import tracker.common.Headers;
 import tracker.model.dto.CreateUserDto;
 import tracker.model.dto.LightUserDto;
@@ -23,8 +20,17 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/create")
-    public LightUserDto createUser(@RequestBody CreateUserDto dto) throws Exception { // todo add controller advice
-        return userService.createUser(dto);
+    public ResponseEntity<LightUserDto> createUser(@RequestBody CreateUserDto dto) { // todo add controller advice
+        try {
+            return ResponseEntity.ok()
+                    .header(Headers.SERVER_MESSAGE.getValue(), "Created user")
+                    .body(userService.createUser(dto));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .header(Headers.SERVER_MESSAGE.getValue(), "Error while creating user")
+                    .build();
+
+        }
     }
     //todo продумать, как создается юзер с ролями, и про приассайнивание ролей для юзера тоже
 
@@ -44,7 +50,15 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public LightUserDto getUserById(@Param("userId") UUID userId) {
-        return userService.getUserById(userId);
+    public ResponseEntity<LightUserDto> getUserById(@PathVariable @Param("userId") UUID userId) {
+        try {
+            return ResponseEntity.ok()
+                    .header(Headers.SERVER_MESSAGE.getValue(), "Retrieved user %s".formatted(userId))
+                    .body(userService.getUserById(userId));
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError()
+                    .header(Headers.SERVER_MESSAGE.getValue(), "No such user %s".formatted(userId))
+                    .build();
+        }
     }
 }
