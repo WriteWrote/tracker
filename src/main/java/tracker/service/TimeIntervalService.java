@@ -6,6 +6,7 @@ import tracker.db.repository.TimeIntervalRepository;
 import tracker.model.dto.ShallowTimeIntervalDto;
 import tracker.model.mapper.TimeIntervalMapper;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 @Service
@@ -24,4 +25,5 @@ public class TimeIntervalService {
             timeIntervalRepository.deleteById(timeIntervalId);
         }
     }
+    // todo filter with pagination
 }

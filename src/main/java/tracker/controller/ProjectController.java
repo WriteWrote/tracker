@@ -1,9 +1,7 @@
-package tracker.controllers;
+package tracker.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tracker.common.Headers;
 import tracker.model.dto.ProjectDto;
@@ -11,7 +9,7 @@ import tracker.service.ProjectService;
 
 import java.util.UUID;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/project")
 public class ProjectController {
@@ -19,15 +17,13 @@ public class ProjectController {
 
     @PostMapping("/create")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto dto) {
-        try {
-            return ResponseEntity.ok()
-                    .header(Headers.SERVER_MESSAGE.getValue(), "Created project")
-                    .body(projectService.createProject(dto));
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError()
-                    .header(Headers.SERVER_MESSAGE.getValue(), "Project with this name already exists")
-                    .build();
-        }
+        return ResponseEntity.ok()
+                .header(Headers.SERVER_MESSAGE.getValue(), "Created project")
+                .body(projectService.createProject(dto));
+//            return ResponseEntity.internalServerError()
+//                    .header(Headers.SERVER_MESSAGE.getValue(), "Project with this name already exists")
+//                    .build();
+//        }
     }
 
     @DeleteMapping("/delete/{projectId}")

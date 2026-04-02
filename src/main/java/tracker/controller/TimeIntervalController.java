@@ -1,4 +1,4 @@
-package tracker.controllers;
+package tracker.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
