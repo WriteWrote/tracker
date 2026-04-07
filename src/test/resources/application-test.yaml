@@ -1,0 +1,8 @@
+spring:
+  main:
+    lazy-initialization: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    schemas: tracker
+    locations: classpath:db/migrations

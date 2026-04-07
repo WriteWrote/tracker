@@ -16,14 +16,10 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/create")
-    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto dto) {
+    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto dto) throws Exception {
         return ResponseEntity.ok()
                 .header(Headers.SERVER_MESSAGE.getValue(), "Created project")
                 .body(projectService.createProject(dto));
-//            return ResponseEntity.internalServerError()
-//                    .header(Headers.SERVER_MESSAGE.getValue(), "Project with this name already exists")
-//                    .build();
-//        }
     }
 
     @DeleteMapping("/delete/{projectId}")

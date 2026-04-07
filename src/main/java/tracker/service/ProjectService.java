@@ -18,6 +18,8 @@ public class ProjectService {
         if (projectRepository.existsByName(dto.getName())) {
             throw new Exception("");
         } else {
+            //todo throw normal exceptions
+            // todo check correct saving of users - testing
             return projectMapper.fromEntity(projectRepository.save(projectMapper.fromDto(dto)));
         }
     }
