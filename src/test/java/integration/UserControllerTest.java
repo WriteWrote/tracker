@@ -1,5 +1,7 @@
 package integration;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 import tracker.common.RerunIfFailed;
 import org.junit.jupiter.api.*;
 import org.springframework.test.context.jdbc.Sql;
@@ -16,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UserControllerTest {
     private static final String BASE_URL = "/user";
 
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     @Order(1)

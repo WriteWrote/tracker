@@ -16,12 +16,12 @@ repositories {
 }
 
 dependencies {
+    // main annotation
     implementation("org.postgresql:postgresql:42.7.10")
     implementation("org.flywaydb:flyway-core:12.1.1")
     implementation("org.flywaydb:flyway-database-postgresql:12.1.1")
     implementation("org.springframework.boot:spring-boot-starter-flyway:4.0.3") // позволяет конфигурации application.yaml видеть проперти flyway
 
-//    implementation("org.sprsingframework.boot:spring-boot-configuration-processor:4.0.3")
     implementation("org.springframework.boot:spring-boot-starter-web:4.0.3")
     implementation("org.springframework.boot:spring-boot-starter-actuator:4.0.3")
     implementation("org.springframework.boot:spring-boot-starter-data-jdbc:4.0.3")
@@ -33,11 +33,17 @@ dependencies {
     implementation("org.mapstruct:mapstruct:1.6.3")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 
+    // tests annotation
     testImplementation("org.springframework.boot:spring-boot-starter-test:4.0.3")
-    implementation("org.springframework.boot:spring-boot-starter-jdbc-test:4.0.3")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-web:4.0.3")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test:4.0.3")
+    testImplementation("org.springframework.boot:spring-boot-starter-jdbc-test:4.0.3")
+
+//    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+//    testImplementation("org.junit.jupiter:junit-jupiter")
+//    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.3")
+    testImplementation("org.junit.platform:junit-platform-launcher:6.0.3")
 
     testImplementation("org.testcontainers:testcontainers:2.0.4")
     testImplementation("org.testcontainers:testcontainers-postgresql:2.0.4")
