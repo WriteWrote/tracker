@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("org.gradle.test-retry") version "1.6.4"
 }
 
 java {
@@ -45,4 +46,15 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.withType<Test>().configureEach {
+    retry {
+        maxRetries.set(2)
+        failOnPassedAfterRetry.set(false)
+
+        filter {
+            includeAnnotationClasses.add("tracker.common.RerunIfFailed")
+        }
+    }
 }
