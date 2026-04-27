@@ -45,6 +45,23 @@ public class UserControllerTest extends BaseTestClassConfig {
     @Test
     @Order(2)
     public void createUser_ReturnAlreadyExists() throws Exception {
+        var userDto = userDtoProvider.getValidUserDto().setLogin("Existing user");
+        mockMvc.perform(post(BASE_URL + "/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userDto))
+                ).andExpect(status().isCreated())
+                .andReturn();
+        var response = mockMvc.perform(post(BASE_URL + "/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userDto))
+                ).andExpect(status().isBadRequest())
+                .andReturn();
+        //todo add checking for unique login to service
+    }
+
+//    @Test
+    @Order(3)
+    public void deleteUser_ReturnOk() throws Exception {
         var userDtoNoId = userDtoProvider.getValidUserDto();
         var response = mockMvc.perform(post(BASE_URL + "/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -59,18 +76,12 @@ public class UserControllerTest extends BaseTestClassConfig {
         // todo check writing to db?
     }
 
-    @Test
-    @Order(3)
-    public void deleteUser_ReturnOk() {
-        assertTrue(true);
-    }
-
     /**
      * Флаки-тест для иллюстрации работы gradle-плагина для перезапуска падающих тестов
      * Плагин перезапускает тест еще 2 раза, и помечает билд успешным, если повторные прогоны были успешными
      * Если все повторные прогоны были неуспешными, то тест помечается упавшим
      */
-    @Test
+//    @Test
     @Order(4)
     public void flakyTest() {
         assertTrue(new Random().nextBoolean());
