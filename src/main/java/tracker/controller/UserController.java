@@ -2,6 +2,7 @@ package tracker.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,9 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<LightUserDto> createUser(@RequestBody CreateUserDto dto) { // todo add controller advice
         try {
-            return ResponseEntity.ok()
-                    .header(Headers.SERVER_MESSAGE.getValue(), "Created user")
-                    .body(userService.createUser(dto));
+            return new ResponseEntity<LightUserDto>(userService.createUser(dto), HttpStatus.CREATED);
+//                    .header(Headers.SERVER_MESSAGE.getValue(), "Created user")
+//                    .body(userService.createUser(dto));
         } catch (Exception e) {
             return ResponseEntity.internalServerError()
                     .header(Headers.SERVER_MESSAGE.getValue(), "Error while creating user")
@@ -32,7 +33,6 @@ public class UserController {
 
         }
     }
-    //todo продумать, как создается юзер с ролями, и про приассайнивание ролей для юзера тоже
 
     @PostMapping("/assignProject")
     public ResponseEntity<String> assignProjectToUser(@RequestBody ProjectToUserDto dto) throws Exception {

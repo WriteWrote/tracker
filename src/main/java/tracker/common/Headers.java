@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Headers {
-    SERVER_MESSAGE("Server message.");
+    SERVER_MESSAGE("Server message:");
 
     private final String value;
     Headers(String value) {
