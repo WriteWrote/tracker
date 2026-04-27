@@ -48,6 +48,11 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:2.0.4")
     testImplementation("org.testcontainers:testcontainers-postgresql:2.0.4")
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.4")
+//    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.21.2")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.44")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.44")
+
 }
 
 tasks.test {

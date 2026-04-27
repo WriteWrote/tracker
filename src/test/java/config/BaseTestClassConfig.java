@@ -11,6 +11,6 @@ import tracker.Main;
 @AutoConfigureMockMvc
 @ActiveProfiles("integration-test")
 @SpringBootTest(classes = Main.class)
-@ContextConfiguration(initializers = {DockerPostgreDataSourceInitializer.class})
+//@ContextConfiguration(initializers = {DockerPostgreDataSourceInitializer.class})
 public class BaseTestClassConfig {
 }

@@ -7,8 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+//import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import providers.TestUserDtoProvider;
+import tools.jackson.databind.ObjectMapper;
 import tracker.common.RerunIfFailed;
 import tracker.model.dto.LightUserDto;
 
@@ -19,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RerunIfFailed
-@Sql("db/migrations/user_controller_populate_db.sql")
+@Sql("/db/migrations/user_controller_populate_db.sql")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ContextConfiguration(classes = {TestUserDtoProvider.class})
