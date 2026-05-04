@@ -46,9 +46,10 @@ public class UserService {
 
     public void deleteUser(UUID id) throws Exception {
         if (userRepository.findById(id).isPresent()) {
+            //todo handle errors while deleting user without projects and timeintervals
             userRepository.deleteById(id);
         } else {
-            throw new Exception("");
+            throw new Exception("User with this UUID doesn't exist");
         }
     }
 

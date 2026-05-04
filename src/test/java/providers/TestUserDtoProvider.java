@@ -1,5 +1,6 @@
 package providers;
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import tracker.model.dto.CreateUserDto;
 

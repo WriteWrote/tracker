@@ -14,14 +14,17 @@ import tracker.common.Headers;
 import tracker.common.RerunIfFailed;
 import tracker.db.repository.UserRepository;
 import tracker.model.dto.LightUserDto;
+import tracker.model.dto.UserWithProjectsDto;
 
 import java.util.Random;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RerunIfFailed
+//@RerunIfFailed
+
 @Sql("/db/migrations/user_controller_populate_db.sql")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -37,6 +40,7 @@ public class UserControllerTest extends BaseTestClassConfig {
 
     @Autowired
     private TestUserDtoProvider userDtoProvider;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -89,7 +93,7 @@ public class UserControllerTest extends BaseTestClassConfig {
                 ).andExpect(status().isCreated())
                 .andReturn();
         var createdUserId = userRepository.findByLogin(userDto.getLogin()).orElseThrow().getId();
-        mockMvc.perform(post(BASE_URL + "/delete")
+        mockMvc.perform(delete(BASE_URL + "/delete")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createdUserId))
                 ).andExpect(status().isOk())
@@ -99,20 +103,50 @@ public class UserControllerTest extends BaseTestClassConfig {
 
     @Test
     @Order(4)
-    public void deleteUser_notExists() {
-
+    public void deleteUser_notExists() throws Exception {
+        // todo а как удостовериться, что uuid будет всегда уникален и не встретится уже в бд, кроме перебора?
+        var randomUUID = UUID.randomUUID();
+        var response = mockMvc.perform(delete(BASE_URL + "/delete")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(randomUUID))
+                ).andExpect(status().isInternalServerError())
+                .andReturn();
+        assertEquals("User with this UUID doesn't exist", response.getResponse().getHeader(Headers.SERVER_MESSAGE.getValue()));
     }
 
     @Test
     @Order(5)
-    public void getUserById_ok() {
-
+    public void getUserById_ok() throws Exception {
+        var userDto = userDtoProvider.getValidUserDto();
+        mockMvc.perform(post(BASE_URL + "/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userDto))
+                ).andExpect(status().isCreated())
+                .andReturn();
+        var createdUserId = userRepository.findByLogin(userDto.getLogin()).orElseThrow().getId();
+        var response = mockMvc.perform(get(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(createdUserId))
+                ).andExpect(status().isOk())
+                .andReturn();
+        var responseDto = objectMapper.readValue(response.getResponse().getContentAsString(), UserWithProjectsDto.class);
+        assertNotNull(responseDto);
+        assertEquals(userDto.getLogin(), responseDto.getLogin());
+        assertEquals(userDto.getGrade(), responseDto.getGrade());
+        assertEquals(userDto.getPosition(), responseDto.getPosition());
     }
 
     @Test
     @Order(6)
-    public void getUserById_notExists() {
-
+    public void getUserById_notExists() throws Exception {
+        // todo а как удостовериться, что uuid будет всегда уникален и не встретится уже в бд, кроме перебора?
+        var randomUUID = UUID.randomUUID();
+        var response = mockMvc.perform(delete(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(randomUUID))
+                ).andExpect(status().isInternalServerError())
+                .andReturn();
+        assertEquals("User with this UUID doesn't exist", response.getResponse().getHeader(Headers.SERVER_MESSAGE.getValue()));
     }
 
     @Test

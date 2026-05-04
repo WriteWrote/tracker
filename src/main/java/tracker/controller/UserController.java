@@ -49,8 +49,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<LightUserDto> getUserById(@PathVariable @Param("userId") UUID userId) {
+    @GetMapping()
+    public ResponseEntity<LightUserDto> getUserById(@RequestBody UUID userId) {
         try {
             return ResponseEntity.ok()
                     .header(Headers.SERVER_MESSAGE.getValue(), "Retrieved user %s".formatted(userId))
